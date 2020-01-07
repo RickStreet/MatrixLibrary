@@ -32,7 +32,7 @@ public class Matrix {
     /**
      Array of elements as a single row (each row consecutively.
      */
-    pubic var array: [Double]
+    public var array: [Double]
     
     public init(rows:Int, cols:Int) {
         self.rows = rows
