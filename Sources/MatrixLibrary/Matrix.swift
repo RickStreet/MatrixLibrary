@@ -22,12 +22,12 @@ public class Matrix {
     /**
      Rows in matrix.
      */
-     var rows: Int
+    public var rows: Int
     
     /**
      Columns in matix.
      */
-     var cols: Int
+     public var cols: Int
     
     /**
      Array of elements as a single row (each row consecutively.
