@@ -17,6 +17,9 @@ import Accelerate
  - cols: number of columns in matrix
  - array: Array of the elements as a single row (each row consecutively).
  - subscript: [i, j] index starts at 0
+ - Note
+            When the matrix is initiated, it fills the rows and columns with 0.0.  If you are appending values to array directly, make sure to remoffAll elelements.
+ 
  */
 public class Matrix {
     /**
