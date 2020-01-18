@@ -15,7 +15,7 @@ extension Double {
         guard self != 0.0 else {
             return 0
         }
-        let divisor = pow(10.0, Double(places) - ceil(log10(fabs(self))))
+        let divisor = pow(10.0, Double(digits) - ceil(log10(fabs(self))))
         return (self * divisor).rounded() / divisor
     }
 }

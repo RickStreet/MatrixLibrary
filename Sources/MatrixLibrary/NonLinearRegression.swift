@@ -182,7 +182,7 @@ public class NLR {
         
         // round significant digits for error
         for i in 0 ..< numberParams {
-            params.array[i] = params.array[i].roundTo(places: 9)
+            params.array[i] = params.array[i].roundTo(digits: 9)
         }
         iterations = k
         

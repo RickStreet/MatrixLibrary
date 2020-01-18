@@ -10,9 +10,7 @@
 //
 
 import Foundation
-
-
-
+import DialogKit
 
 func Jacobian(fn: ([Double], Double) -> Double, params: [Double], xValues: [Double]) -> Matrix {
     let matrix = Matrix(rows: xValues.count, cols: params.count)
@@ -191,9 +189,10 @@ func levenbergMarquardt(fn: ([Double], Double) -> Double, initParams: [Double], 
         r2 = -1.0  // Neg r2 signifies soln did not converge
     }
     
+    let _ = dialogOK("Warning", info: "Levenberg-Marquardt failed to converge!")
     // round significant digits for error
     for i in 0 ..< numberParams {
-        params.array[i] = params.array[i].roundTo(places: 9)
+        params.array[i] = params.array[i].roundTo(digits: 9)
         
     }
 
