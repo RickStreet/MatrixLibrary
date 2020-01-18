@@ -8,7 +8,9 @@
 import Foundation
 
 extension Double {
-    // Rounds the double to 'places' significant digits
+    
+    /// Round Double to significant digits
+    /// - Parameter digits: number of digits to round to.
     func roundTo(digits:Int) -> Double {
         guard self != 0.0 else {
             return 0
