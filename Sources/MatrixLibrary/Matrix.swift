@@ -13,10 +13,10 @@ import Accelerate
 /**
  Matix class is a two dimensional matrix addressable by indicies [i, j] that provides common matrix operations.  It uses the Accelerate library to do the operations.
  - Parameters:
- - rows: number of rows in matrix
- - cols: number of columns in matrix
- - array: Array of the elements as a single row (each row consecutively).
- - subscript: [i, j] index starts at 0
+ - rows:    number of rows in matrix
+ - cols:    number of columns in matrix
+ - array:   Array of the elements as a single row (each row consecutively).
+ - subscript:   [i, j] index starts at 0
  - Note
             When the matrix is initiated, it fills the rows and columns with 0.0.  If you are appending values to array directly, make sure to remoffAll elelements.
  
@@ -234,7 +234,18 @@ public class Matrix {
         vDSP_maxviD(self.array, 1, &result, &index, vDSP_Length(self.array.count))
         return result
     }
-    
+
+    /**
+     minValue returns minimum element value in matrix
+     - returns: min value of elementts
+     */
+    public var minValue: Double {
+        var index: UInt = 0
+        var result: Double = 0.0
+        vDSP_minviD(self.array, 1, &result, &index, vDSP_Length(self.array.count))
+        return result
+    }
+
     /**
      infinityNorm returns the Infinity Norm array (vector) i.e. The max absolute value
      - returns: Infinity Norm
@@ -277,15 +288,6 @@ public class Matrix {
     }
 }
 
-public class Vector {
-    public var array = [Double]()
-    public func mean() -> Double {
-        var result = 0.0
-        vDSP_meanvD(array, 1, &result, vDSP_Length(array.count))
-        return result
-    }
-    
-}
 
 
 /**
