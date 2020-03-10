@@ -191,6 +191,7 @@ public class NLR {
         // find outliers if converged
         if r2 > 0 {
             for (i, resid) in residuals.array.enumerated() {
+                self.residuals.append((xValues[i], resid))
                 if !(resid < standardDeviation * confidenceMultiplier || resid < smallNumber) {
                     outliers.append((xValues[i], yValues[i]))
                     print("outlier: \(xValues[i]), \(yValues[i])  resid \(resid)")
