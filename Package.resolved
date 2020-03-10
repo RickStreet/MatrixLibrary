@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DialogKit",
+        "repositoryURL": "https://github.com/RickStreet/DialogKit.git",
+        "state": {
+          "branch": null,
+          "revision": "5ae19639fe3d6f1932e87a88312ffee2b4ee39ee",
+          "version": "1.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -33,6 +33,8 @@ public class NLR {
     }
     
     public var outliers = [(x: Double, y: Double)]()
+    public var residuals = [(x: Double, y: Double)]()
+
 
     let smallNumber = 1e-6
 
@@ -168,10 +170,10 @@ public class NLR {
             r2Denominator += (y - yMean) * (y - yMean)
         }
         
-        let finalResiduals = getResiduals(fn: fn, params: params.array, xValues: xValues, yValues: yValues)
+        residuals = getResiduals(fn: fn, params: params.array, xValues: xValues, yValues: yValues)
         // var r2: Double
         if k < maxIterations {
-            let sSE = finalResiduals.dotProduct(finalResiduals) // Sum of squared residuals
+            let sSE = residuals.dotProduct(residuals) // Sum of squared residuals
             variance = sSE / Double((numberPoints + numberParams))
             r2 = 1.0 - sSE / r2Denominator
             converged = true
@@ -188,7 +190,7 @@ public class NLR {
         
         // find outliers if converged
         if r2 > 0 {
-            for (i, resid) in finalResiduals.array.enumerated() {
+            for (i, resid) in residuals.array.enumerated() {
                 if !(resid < standardDeviation * confidenceMultiplier || resid < smallNumber) {
                     outliers.append((xValues[i], yValues[i]))
                     print("outlier: \(xValues[i]), \(yValues[i])  resid \(resid)")

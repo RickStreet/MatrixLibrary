@@ -34,6 +34,7 @@ public class LR {
     }
     
     public var outliers = [(x: Double, y: Double)]()
+    public var residuals = [(x: Double, y: Double)]()
     
     public var noCoef: Int {
         get {
@@ -109,7 +110,7 @@ public class LR {
         rSquaredAdjusted = 1.0 - (Double(nSamples - 1) / Double(nSamples - noCoef)) * (1.0 - rSquared)  // R2 petalized for greater no coefs
         variance = sSE / (Double(nSamples) - Double(coefs.count))
         
-        // build array of outliers
+        // build array of outliers and residuals
         for s in 0 ..< nSamples {
             var yPredict = 0.0
             for c in -1 ..< noCoef - 1 {
@@ -117,8 +118,10 @@ public class LR {
                 yPredict += b.array[c+1] * sample(no: s, coef: c)
             }
             print("\(s)  x \(ind.array[s])  y \(dep.array[s])  yp \(yPredict)")
-            let resid = abs(dep.array[s] - yPredict)
-            if !(resid < standardDeviation * confidenceMultiplier || resid < smallNumber)   {
+            let residual = dep.array[s] - yPredict
+            residuals.append((x: ind.array[s], residual))
+            let absResidual = abs(residual)
+            if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind.array[s], dep.array[s]))
                 print("out: \(outliers.last ?? (-999.9, -999.9))")
             }
