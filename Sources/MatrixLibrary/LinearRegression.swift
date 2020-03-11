@@ -50,6 +50,8 @@ public class LR {
     
     func fit() {
         print("fitting data...")
+        residuals.removeAll()
+        outliers.removeAll()
         var b = Matrix(rows: noCoef, cols: 1) // Final coefs
         var x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
         var y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
@@ -126,6 +128,12 @@ public class LR {
                 outliers.append((ind.array[s], dep.array[s]))
                 print("out: \(outliers.last ?? (-999.9, -999.9))")
             }
+        }
+        print()
+        print("no, x, residual")
+        for residual in residuals {
+            print("\(s)  x \(residual.x)  y \(residual.y)")
+
         }
         print()
         print("StDev \(standardDeviation)")
