@@ -130,9 +130,9 @@ public class LR {
             }
         }
         print()
-        print("no, x, residual")
+        print("x, residual")
         for residual in residuals {
-            print("\(s)  x \(residual.x)  y \(residual.y)")
+            print("x \(residual.x)  r \(residual.y)")
 
         }
         print()
