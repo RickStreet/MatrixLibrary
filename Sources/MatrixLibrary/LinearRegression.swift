@@ -129,6 +129,7 @@ public class LR {
                 // print("out: \(outliers.last ?? (-999.9, -999.9))")
             }
         }
+        /*
         print()
         print("outliers")
         for (i, outlier) in outliers.enumerated() {
@@ -138,7 +139,6 @@ public class LR {
         print("x, residual")
         for (i, residual) in residuals.enumerated() {
             print("i \(i) x \(residual.x)  r \(residual.y)")
-
         }
         print()
         print("StDev \(standardDeviation)")
@@ -148,6 +148,7 @@ public class LR {
             print(point)
         }
         print("fit complete")
+        */
     }
     
     public init(ind: Matrix, dep: Matrix) {
