@@ -132,7 +132,7 @@ public class LR {
         print()
         print("outliers")
         for (i, outlier) in outliers.enumerated() {
-            print("i \(i) x \(outliers.0), y \(outliers.1)")
+            print("i \(i) x \(outlier.0), y \(outlier.1)")
         }
         print()
         print("x, residual")
