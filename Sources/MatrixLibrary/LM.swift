@@ -51,7 +51,7 @@ func getResiduals(fn: ([Double], Double) -> Double, params: [Double], xValues: [
  - returns: Array with parameters that give best least squares fit
  */
 func levenbergMarquardt(fn: ([Double], Double) -> Double, initParams: [Double], xValues: [Double], yValues: [Double]) -> (params: [Double], r2: Double, iterations: Int) {
-    let maxNormG = 1.0e-12// max error for infinite norm of G
+    let maxNormG = 1.0e-12 // max error for infinite norm of G
     let maxNormH = 1.0e-17
     let tau = 1.0e-6
     let maxIterations = 50000

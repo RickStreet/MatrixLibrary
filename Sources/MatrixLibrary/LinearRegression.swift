@@ -119,7 +119,8 @@ public class LR {
             }
             print("\(s)  x \(ind.array[s])  y \(dep.array[s])  yp \(yPredict)")
             let residual = dep.array[s] - yPredict
-            residuals.append((x: ind.array[s], residual))
+            // residuals for first ind only
+            residuals.append((x: ind[0, s], residual))
             let absResidual = abs(residual)
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind.array[s], dep.array[s]))
