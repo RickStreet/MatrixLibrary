@@ -119,20 +119,20 @@ public class LR {
                 // print("c \(c + 1)")
                 yPredict += b.array[c+1] * sample(no: s, coef: c)
             }
-            print("\(s)  x \(ind.array[s])  y \(dep.array[s])  yp \(yPredict)")
+            print("\(s)  x \(ind[s, 0])  y \(dep.array[s])  yp \(yPredict)")
             let residual = dep.array[s] - yPredict
             // residuals for first ind only
-            residuals.append((x: ind[0, s], residual))
+            residuals.append((x: ind[s, 0], residual))
             let absResidual = abs(residual)
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
-                outliers.append((ind.array[s], dep.array[s]))
+                outliers.append((ind[s, 0], dep.array[s]))
                 // print("out: \(outliers.last ?? (-999.9, -999.9))")
             }
         }
         print()
         print("outliers")
         for (i, outlier) in outliers.enumerated() {
-            print("i \(i) x \(outlier.0), y \(outlier.1)")
+            print("i \(i) x \(outlier.x), y \(outlier.y)")
         }
         print()
         print("x, residual")
