@@ -126,13 +126,18 @@ public class LR {
             let absResidual = abs(residual)
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind.array[s], dep.array[s]))
-                print("out: \(outliers.last ?? (-999.9, -999.9))")
+                // print("out: \(outliers.last ?? (-999.9, -999.9))")
             }
         }
         print()
+        print("outliers")
+        for (i, outlier) in outliers.enumerated() {
+            print("i \(i) x \(outliers.0), y \(outliers.1)")
+        }
+        print()
         print("x, residual")
-        for residual in residuals {
-            print("x \(residual.x)  r \(residual.y)")
+        for (i, residual) in residuals.enumerated() {
+            print("i \(i) x \(residual.x)  r \(residual.y)")
 
         }
         print()
