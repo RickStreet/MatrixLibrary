@@ -38,11 +38,14 @@ public class Matrix {
     public var array: [Double]
     
     public init(rows:Int, cols:Int) {
+        dimension(rows: rows, cols: cols)
+    }
+    
+    public func dimension(rows: Int, cols: Int) {
         self.rows = rows
         self.cols = cols
         array = Array(repeating: 0.0, count: cols * rows)
     }
-    
     
     public subscript(row:Int, col:Int) -> Double {
         get {

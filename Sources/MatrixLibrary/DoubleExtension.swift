@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Double {
+public extension Double {
     
     /// Round Double to significant digits
     /// - Parameter digits: number of digits to round to.
