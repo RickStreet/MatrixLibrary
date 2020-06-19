@@ -46,6 +46,7 @@ public class Matrix {
     public func dimension(rows: Int, cols: Int) {
         self.rows = rows
         self.cols = cols
+        array = Array(repeating: 0.0, count: cols * rows)
     }
     
     public subscript(row:Int, col:Int) -> Double {
