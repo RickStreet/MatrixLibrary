@@ -18,7 +18,7 @@ import Accelerate
  - array:   Array of the elements as a single row (each row consecutively).
  - subscript:   [i, j] index starts at 0
  - Note
-            When the matrix is initiated, it fills the rows and columns with 0.0.  If you are appending values to array directly, make sure to remoffAll elelements.
+ When the matrix is initiated, it fills the rows and columns with 0.0.  If you are appending values to array directly, make sure to remoffAll elelements.
  
  */
 public class Matrix {
@@ -30,7 +30,7 @@ public class Matrix {
     /**
      Columns in matix.
      */
-     public var cols: Int
+    public var cols: Int
     
     /**
      Array of elements as a single row (each row consecutively.
@@ -38,13 +38,14 @@ public class Matrix {
     public var array: [Double]
     
     public init(rows:Int, cols:Int) {
-        dimension(rows: rows, cols: cols)
+        self.rows = rows
+        self.cols = cols
+        array = Array(repeating: 0.0, count: cols * rows)
     }
     
     public func dimension(rows: Int, cols: Int) {
         self.rows = rows
         self.cols = cols
-        array = Array(repeating: 0.0, count: cols * rows)
     }
     
     public subscript(row:Int, col:Int) -> Double {
@@ -204,7 +205,7 @@ public class Matrix {
         return resultMatrix
     }
     
-
+    
     public var diagonal: Matrix? {
         if self.rows == self.cols {
             // Square Matrix
@@ -216,7 +217,7 @@ public class Matrix {
         }
         return nil
     }
-
+    
     /**
      meanValue returns maximum element value in matrix
      - returns: mean value of elementts
@@ -226,7 +227,7 @@ public class Matrix {
         vDSP_meanvD(self.array, 1, &result, vDSP_Length(self.array.count))
         return result
     }
-
+    
     /**
      maxValue returns maximum element value in matrix
      - returns: max value of elementts
@@ -237,7 +238,7 @@ public class Matrix {
         vDSP_maxviD(self.array, 1, &result, &index, vDSP_Length(self.array.count))
         return result
     }
-
+    
     /**
      minValue returns minimum element value in matrix
      - returns: min value of elementts
@@ -248,7 +249,7 @@ public class Matrix {
         vDSP_minviD(self.array, 1, &result, &index, vDSP_Length(self.array.count))
         return result
     }
-
+    
     /**
      infinityNorm returns the Infinity Norm array (vector) i.e. The max absolute value
      - returns: Infinity Norm
