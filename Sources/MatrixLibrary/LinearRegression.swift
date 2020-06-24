@@ -15,7 +15,7 @@ import Foundation
  - dep: matrix of dependent (y) values (number of rows must match those in dep)
  - returns: Matrix determined coeficients for least square (first element is y intercept) along with r2 and r2SA (adjusted)
  */
-public class LR {
+public class LinearRegression {
     public var ind: Matrix
     public var dep: Matrix
     public var coefs = [Double]()
