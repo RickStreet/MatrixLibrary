@@ -35,7 +35,8 @@ public class LR {
     
     public var outliers = [(x: Double, y: Double)]()
     public var residuals = [(x: Double, y: Double)]()
-    
+    public var predictions = [(x: Double, y: Double)]()
+
     public var noCoef: Int {
         get {
             return ind.cols + 1
@@ -123,6 +124,7 @@ public class LR {
             let residual = dep.array[s] - yPredict
             // residuals for first ind only
             residuals.append((x: ind[s, 0], residual))
+            predictions.append((x: ind[s, 0], yPredict))
             let absResidual = abs(residual)
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind[s, 0], dep.array[s]))
