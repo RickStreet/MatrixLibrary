@@ -43,6 +43,10 @@ public class Matrix {
         array = Array(repeating: 0.0, count: cols * rows)
     }
     
+    /// Sets dimension of Matrix.  Fills Matrix with zeros
+    /// - Parameters:
+    ///   - rows: total number of rows
+    ///   - cols: total number of columns
     public func dimension(rows: Int, cols: Int) {
         self.rows = rows
         self.cols = cols
@@ -58,12 +62,27 @@ public class Matrix {
         }
     }
     
+    /// Remove row at row index
+    /// - Parameter row: row to remove
+    func removeRow(_ row: Int) {
+        let range = (row * cols)..<(row * cols + cols)
+        array.removeSubrange(range)
+        rows -= 1
+    }
+    
+    /// Removes all rows for row indicies in supplied array
+    /// - Parameter rows: array of rows to remove
+    func removeRows(_ rows: [Int]) {
+        for i in rows {
+            removeRow(i)
+        }
+    }
     
     /**
      addScalar adds a scalar to each element in a matrix
      - Parameters:
      - scalar: Scalar to add
-     - returns: Matrix with Scalar added
+     - returns: fMatrix with Scalar added
      */
     public func add(scalar: Double) -> Matrix {
         var inScalar = scalar
