@@ -53,9 +53,10 @@ public class LinearRegression {
         print("fitting data...")
         residuals.removeAll()
         outliers.removeAll()
+        predictions.removeAll()
         var b = Matrix(rows: noCoef, cols: 1) // Final coefs
-        var x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
-        var y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
+        let x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
+        let y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
         var depMean = 0.0
         var sSE = 0.0   // Sum Square Errors
         var sSR = 0.0   // Sum Residules
@@ -120,7 +121,7 @@ public class LinearRegression {
                 // print("c \(c + 1)")
                 yPredict += b.array[c+1] * sample(no: s, coef: c)
             }
-            print("\(s)  x \(ind[s, 0])  y \(dep.array[s])  yp \(yPredict)")
+            print("\(s)  x \(ind[s, 0])  y \(dep.array[s])  yp \(yPredict)  r \(dep.array[s] - yPredict)")
             let residual = dep.array[s] - yPredict
             // residuals for first ind only
             residuals.append((x: ind[s, 0], residual))
