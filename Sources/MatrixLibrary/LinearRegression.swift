@@ -132,12 +132,12 @@ public class LinearRegression {
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind[s, 0], dep.array[s]))
                 outlierIndices.append(s)
-                // print("out: \(outliers.last ?? (-999.9, -999.9))")
+                print("out row: \(s)")
             }
         }
-        /*
         print()
         print("outliers")
+        print(outlierIndices)
         for (i, outlier) in outliers.enumerated() {
             print("i \(i) x \(outlier.x), y \(outlier.y)")
         }
@@ -154,7 +154,6 @@ public class LinearRegression {
             print(point)
         }
         print("fit complete")
-        */
     }
     
     public init(ind: Matrix, dep: Matrix) {
