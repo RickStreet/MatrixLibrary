@@ -65,6 +65,7 @@ public class Matrix {
     /// Remove row at row index
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
+        print("Matrix: removing row \(row)")
         let range = (row * cols)..<(row * cols + cols)
         array.removeSubrange(range)
         rows -= 1
@@ -73,7 +74,7 @@ public class Matrix {
     /// Removes all rows for row indicies in supplied array
     /// - Parameter rows: array of rows to remove
     public func removeRows(_ rows: [Int]) {
-        for i in rows {
+        for i in rows.reversed() {
             removeRow(i)
         }
     }
