@@ -272,6 +272,22 @@ public class Matrix {
     }
     
     /**
+     minValue returns minimum element index in matrix
+     - returns: min value index
+     */
+    public var indexOfMinValue: Int {
+        var minValue = array[0]
+        var minIndex = 0
+        for (i, value) in array.enumerated() {
+            if value < minValue {
+                minValue = value
+                minIndex = i
+            }
+        }
+        return minIndex
+    }
+    
+    /**
      infinityNorm returns the Infinity Norm array (vector) i.e. The max absolute value
      - returns: Infinity Norm
      */
