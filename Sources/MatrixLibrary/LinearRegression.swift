@@ -24,7 +24,15 @@ public class LinearRegression {
     public var rSquaredAdjusted = 0.0
     public var rSquared = 0.0
     public var variance = 0.0 // variance of redidules
-    public var confidenceMultiplier = 2.0  // Standard Deviation multiplier for outlier calc (2 = 90% confidence)
+    public var confidenceMultiplier = 1.96  // Standard Deviation multiplier for outlier calc (1.96 = 95% confidence)
+    /*
+     Conf   z
+     90%    1.645
+     95%    1.96
+     99%    2.576
+    */
+    
+    
     let smallNumber = 1e-10
     
     public var standardDeviation: Double {
@@ -51,7 +59,7 @@ public class LinearRegression {
     }
     
     func fit() {
-        print("fitting data...")
+        // print("fitting data...")
         residuals.removeAll()
         outliers.removeAll()
         outlierIndices.removeAll()
@@ -123,7 +131,7 @@ public class LinearRegression {
                 // print("c \(c + 1)")
                 yPredict += b.array[c+1] * sample(no: s, coef: c)
             }
-            print("\(s)  x \(ind[s, 0])  y \(dep.array[s])  yp \(yPredict)  r \(dep.array[s] - yPredict)")
+            // print("\(s)  x \(ind[s, 0])  y \(dep.array[s])  yp \(yPredict)  r \(dep.array[s] - yPredict)")
             let residual = dep.array[s] - yPredict
             // residuals for first ind only
             residuals.append((x: ind[s, 0], residual))
@@ -132,28 +140,34 @@ public class LinearRegression {
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind[s, 0], dep.array[s]))
                 outlierIndices.append(s)
-                print("out row: \(s)")
+                // print("out row: \(s)")
             }
         }
-        print()
-        print("outliers")
-        print(outlierIndices)
+        // print()
+        // print("outliers")
+        // print(outlierIndices)
+        /*
         for (i, outlier) in outliers.enumerated() {
             print("i \(i) x \(outlier.x), y \(outlier.y)")
         }
-        print()
-        print("x, residual")
+        */
+        //print()
+        // print("x, residual")
+        /*
         for (i, residual) in residuals.enumerated() {
             print("i \(i) x \(residual.x)  r \(residual.y)")
         }
+        */
         print()
         print("StDev \(standardDeviation)")
-        print("90% Conv \(standardDeviation * confidenceMultiplier)")
+        print("95% Conv Interval \(standardDeviation * confidenceMultiplier)")
         print("Outliers")
+        /*
         for point in outliers {
             print(point)
         }
-        print("fit complete")
+         */
+       // print("fit complete")
     }
     
     public init(ind: Matrix, dep: Matrix) {

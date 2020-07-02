@@ -273,7 +273,7 @@ public class Matrix {
     
     /**
      minValue returns minimum element index in matrix
-     - returns: min value index
+     - returns: min value index 
      */
     public var indexOfMinValue: Int {
         var minValue = array[0]
