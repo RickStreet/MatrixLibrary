@@ -36,7 +36,7 @@ public class NLR {
     public var residuals = [(x: Double, y: Double)]()
 
 
-    let smallNumber = 1e-6
+    public var maxPrecisionError = 1e-6
 
     
     func fit() {
@@ -44,6 +44,12 @@ public class NLR {
         let maxNormH = 1.0e-17
         let tau = 1.0e-6
         let maxIterations = 50000
+        
+        if xValues.count > 1000 {
+            maxPrecisionError = 1e-5
+        } else {
+            maxPrecisionError = 1e-6
+        }
         
         
         var k = 0 // ieteration
@@ -192,7 +198,7 @@ public class NLR {
         if r2 > 0 {
             for (i, resid) in residuals.array.enumerated() {
                 self.residuals.append((xValues[i], resid))
-                if !(resid < standardDeviation * confidenceMultiplier || resid < smallNumber) {
+                if !(resid < standardDeviation * confidenceMultiplier || resid < maxPrecisionError) {
                     outliers.append((xValues[i], yValues[i]))
                     print("outlier: \(xValues[i]), \(yValues[i])  resid \(resid)")
                 }
