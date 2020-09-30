@@ -74,7 +74,7 @@ public class Matrix {
     /// Removes all rows for row indicies in supplied array
     /// - Parameter rows: array of rows to remove
     public func removeRows(_ rows: [Int]) {
-        for i in rows.reversed() {
+        for i in rows.sorted(by: {$0 > $1}) {
             removeRow(i)
         }
     }
