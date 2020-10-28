@@ -291,6 +291,14 @@ public class Matrix {
         return max
     }
     
+    public func averageValue(col: Int) -> Double {
+        var total = 0.0
+        for i in 0 ..< rows {
+            total += self[i, col]
+        }
+        return total / Double(rows)
+    }
+    
     /**
      minValue returns minimum element index in matrix
      - returns: min value index 
