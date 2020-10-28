@@ -271,6 +271,26 @@ public class Matrix {
         return result
     }
     
+    public func minValue(col: Int) -> Double {
+        var min = self[0, col]
+        for i in  1 ..< self.rows {
+            if self[i, col] < min {
+                min = self[i, col]
+            }
+        }
+        return min
+    }
+    
+    public func maxValue(col: Int) -> Double {
+        var max = self[0, col]
+        for i in  1 ..< self.rows {
+            if self[i, col] > max {
+                max = self[i, col]
+            }
+        }
+        return max
+    }
+    
     /**
      minValue returns minimum element index in matrix
      - returns: min value index 
