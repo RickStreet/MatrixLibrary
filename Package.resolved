@@ -6,8 +6,26 @@
         "repositoryURL": "https://github.com/RickStreet/DialogKit.git",
         "state": {
           "branch": null,
-          "revision": "5ae19639fe3d6f1932e87a88312ffee2b4ee39ee",
-          "version": "1.0.3"
+          "revision": "ba5c368ade6f845124643754a068c4e685040a21",
+          "version": "1.0.8"
+        }
+      },
+      {
+        "package": "DoubleKit",
+        "repositoryURL": "https://github.com/RickStreet/DoubleKit.git",
+        "state": {
+          "branch": null,
+          "revision": "4f74057aec64b4ef8a4aa9bc0cc564f7a0b2d14d",
+          "version": "1.0.6"
+        }
+      },
+      {
+        "package": "StringKit",
+        "repositoryURL": "https://github.com/RickStreet/StringKit.git",
+        "state": {
+          "branch": null,
+          "revision": "c7793ea50d094069a6f059eff50b8f60341511d9",
+          "version": "1.0.21"
         }
       }
     ]

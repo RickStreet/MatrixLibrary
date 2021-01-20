@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DoubleKit
 
 /// Non-Linear Regression for X Y data
 public class NLR {
