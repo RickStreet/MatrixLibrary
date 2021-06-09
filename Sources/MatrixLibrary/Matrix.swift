@@ -62,6 +62,34 @@ public class Matrix {
         }
     }
     
+    
+    /// Returns row with index
+    /// - Parameter row: row index for row to return
+    /// - Returns: Row with index i
+    public func row(_ row: Int) -> [Double]? {
+        guard row >= 0 && row < rows else {
+            return nil
+        }
+        let range = (row * cols)..<(row * cols + cols)
+        return Array(array[range])
+    }
+    
+    /// Returns column with index
+    /// - Parameter col: column index for column to return.
+    /// - Returns: Column with index i
+    public func col(_ col: Int) -> [Double]? {
+        guard col >= 0 || col < cols else {
+            return nil
+        }
+        var selectedCol = [Double]()
+        for i in stride(from: col, through: array.count - col - 1, by: cols) {
+            selectedCol.append(array[i])
+        }
+        return selectedCol
+    }
+
+    
+    
     /// Remove row at row index
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
@@ -370,8 +398,8 @@ public func leastSquaresFit(ind: Matrix, dep: Matrix) -> (coefs: [Double], r2: D
     let noCoef = ind.cols + 1
     let nSamples = dep.rows
     var b = Matrix(rows: noCoef, cols: 1) // Final coefs
-    var x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
-    var y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
+    let x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
+    let y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
     var depMean = 0.0
     var sSE = 0.0   // Sum Square Errors
     var sSR = 0.0   // Sum Residules
