@@ -120,6 +120,7 @@ public class Matrix {
             print("remove index \(i), \(array[i])")
             array.remove(at: i)
         }
+        cols -= 1
     }
 
     
