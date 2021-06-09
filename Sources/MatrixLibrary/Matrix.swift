@@ -107,6 +107,22 @@ public class Matrix {
         }
     }
     
+    /// Remove column at index
+    /// - Parameter col: Column index
+    public func removeCol(_ col: Int) {
+        guard col >= 0 || col < cols else {
+            return
+        }
+        print("cols \(cols)")
+        print("count - cols \(array.count - cols)")
+        for i in stride(from: (array.count - (cols - col)), to: -1, by: -cols) {
+            
+            print("remove index \(i), \(array[i])")
+            array.remove(at: i)
+        }
+    }
+
+    
     /**
      addScalar adds a scalar to each element in a matrix
      - Parameters:
