@@ -85,6 +85,11 @@ public class Matrix {
         for i in stride(from: col, through: array.count - col - 1, by: cols) {
             selectedCol.append(array[i])
         }
+        if col == cols - 1 {
+            if let value = array.last {
+                selectedCol.append(value)
+            }
+        }
         return selectedCol
     }
 
