@@ -54,7 +54,7 @@ func levenbergMarquardt(fn: ([Double], Double) -> Double, initParams: [Double], 
     let maxNormG = 1.0e-12 // max error for infinite norm of G
     let maxNormH = 1.0e-17
     let tau = 1.0e-6
-    let maxIterations = 50000
+    let maxIterations = 10000
     
     
     var k = 0
@@ -172,6 +172,8 @@ func levenbergMarquardt(fn: ([Double], Double) -> Double, initParams: [Double], 
         }
         // print("new mu\(k): \(mu)")
     }
+    // end while
+    
     print("Number of LM interations: \(k)")
     let yMatrix = Matrix(rows: numberPoints, cols: 1)
     yMatrix.array = yValues
@@ -190,6 +192,7 @@ func levenbergMarquardt(fn: ([Double], Double) -> Double, initParams: [Double], 
     }
     
     let _ = dialogOK("Warning", info: "Levenberg-Marquardt failed to converge!")
+    
     // round significant digits for error
     for i in 0 ..< numberParams {
         params.array[i] = params.array[i].roundTo(digits: 9)

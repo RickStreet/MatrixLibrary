@@ -10,7 +10,7 @@ import Foundation
 import DoubleKit
 
 /// Non-Linear Regression for X Y data
-public class NLR {
+public class NonLinearRegression {
     // Input vars
     var fn: ([Double], Double) -> Double
     var initParams: [Double]
@@ -44,7 +44,7 @@ public class NLR {
         let maxNormG = 1.0e-12// max error for infinite norm of G
         let maxNormH = 1.0e-17
         let tau = 1.0e-6
-        let maxIterations = 50000
+        let maxIterations = 10000
         
         if xValues.count > 1000 {
             maxPrecisionError = 1e-5
@@ -168,6 +168,8 @@ public class NLR {
             }
             // print("new mu\(k): \(mu)")
         }
+        // end while
+        
         print("Number of LM interations: \(k)")
         let yMatrix = Matrix(rows: numberPoints, cols: 1)
         yMatrix.array = yValues
