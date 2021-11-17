@@ -9,6 +9,11 @@
 import Foundation
 import DoubleKit
 
+enum ConvergeError: Error {
+    case failed
+}
+
+
 /// Non-Linear Regression for X Y data
 public class NonLinearRegression {
     // Input vars
@@ -40,7 +45,7 @@ public class NonLinearRegression {
     public var maxPrecisionError = 1e-6
 
     
-    func fit() {
+    func fit() throws {
         let maxNormG = 1.0e-12// max error for infinite norm of G
         let maxNormH = 1.0e-17
         let tau = 1.0e-6
@@ -189,6 +194,7 @@ public class NonLinearRegression {
         } else {
             r2 = -1.0  // Neg r2 signifies soln did not converge
             converged = false
+            throw ConvergeError.failed
         }
         
         // round significant digits for error
@@ -241,7 +247,10 @@ public class NonLinearRegression {
         self.xValues = xValues
         self.yValues = yValues
         params = Matrix(rows: initParams.count, cols: 1)
-        fit()
+        do {
+            try fit()
+        } catch {
+            print("Did not converge!")
+        }
     }
-    
 }
