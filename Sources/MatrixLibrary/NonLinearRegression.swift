@@ -241,7 +241,7 @@ public class NonLinearRegression {
         return rMatrix
     }
     
-    public init(fn: @escaping ([Double], Double) -> Double, initParams: [Double], xValues: [Double], yValues: [Double]) {
+    public init(fn: @escaping ([Double], Double) -> Double, initParams: [Double], xValues: [Double], yValues: [Double]) throws {
         self.fn = fn
         self.initParams = initParams
         self.xValues = xValues
@@ -251,6 +251,7 @@ public class NonLinearRegression {
             try fit()
         } catch {
             print("Did not converge!")
+            throw ConvergeError.failed
         }
     }
 }
