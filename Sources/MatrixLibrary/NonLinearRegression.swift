@@ -87,7 +87,7 @@ public class NonLinearRegression {
         if let d = a.diagonal {
             aDiag = d
         } else {
-            print("Non square a")
+            // print("Non square a")
         }
         
         var mu = tau * aDiag.maxValue   // damping parameter
