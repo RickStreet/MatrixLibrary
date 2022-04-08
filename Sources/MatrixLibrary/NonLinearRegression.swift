@@ -13,6 +13,12 @@ enum ConvergeError: Error {
     case failed
 }
 
+protocol ConvergeFailure: AnyObject {
+    func convergeFailed()
+}
+
+
+
 
 /// Non-Linear Regression for X Y data
 public class NonLinearRegression {
@@ -24,6 +30,9 @@ public class NonLinearRegression {
     
     public var confidenceMultiplier = 2.0  // Standard Deviation multiplier for outlier calc (2 = 90% confidence)
     public var converged = false
+    
+    weak var delegate: ConvergeFailure? = nil
+
 
     
     // Results
@@ -49,7 +58,7 @@ public class NonLinearRegression {
         let maxNormG = 1.0e-12// max error for infinite norm of G
         let maxNormH = 1.0e-17
         let tau = 1.0e-6
-        let maxIterations = 10000
+        let maxIterations = 500
         
         if xValues.count > 1000 {
             maxPrecisionError = 1e-5
@@ -194,7 +203,8 @@ public class NonLinearRegression {
         } else {
             r2 = -1.0  // Neg r2 signifies soln did not converge
             converged = false
-            throw ConvergeError.failed
+            delegate?.convergeFailed()
+            // throw ConvergeError.failed
         }
         
         // round significant digits for error
