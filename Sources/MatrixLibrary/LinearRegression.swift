@@ -44,7 +44,9 @@ public class LinearRegression {
     public var outliers = [(x: Double, y: Double)]()
     public var outlierIndices = [Int]()
     public var residuals = [(x: Double, y: Double)]()
-    public var predictions = [(x: Double, y: Double)]()
+    public var predictions = [(x: Double, y: Double)]() // Ind0 vs depPredict
+    public var xyPredictions = [(x: Double, y: Double)]() // Actual vs Predicted dep
+
 
     public var noCoef: Int {
         get {
@@ -64,6 +66,7 @@ public class LinearRegression {
         outliers.removeAll()
         outlierIndices.removeAll()
         predictions.removeAll()
+        xyPredictions.removeAll()
         var b = Matrix(rows: noCoef, cols: 1) // Final coefs
         let x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
         let y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
@@ -136,6 +139,7 @@ public class LinearRegression {
             // residuals for first ind only
             residuals.append((x: ind[s, 0], residual))
             predictions.append((x: ind[s, 0], yPredict))
+            xyPredictions.append((x: dep[s,0], yPredict))
             let absResidual = abs(residual)
             if !(absResidual < standardDeviation * confidenceMultiplier || absResidual < smallNumber)   {
                 outliers.append((ind[s, 0], dep.array[s]))
