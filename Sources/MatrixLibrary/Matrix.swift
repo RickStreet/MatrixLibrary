@@ -83,7 +83,7 @@ public class Matrix {
         }
         var selectedCol = [Double]()
         for i in stride(from: col, through: array.count - (cols - col), by: cols) {
-            print("i \(i)")
+            // print("i \(i)")
             selectedCol.append(array[i])
         }
         return selectedCol
@@ -94,7 +94,7 @@ public class Matrix {
     /// Remove row at row index
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
-        print("Matrix: removing row \(row)")
+        // print("Matrix: removing row \(row)")
         let range = (row * cols)..<(row * cols + cols)
         array.removeSubrange(range)
         rows -= 1
@@ -114,11 +114,11 @@ public class Matrix {
         guard col >= 0 || col < cols else {
             return
         }
-        print("cols \(cols)")
-        print("count - cols \(array.count - cols)")
+        // print("cols \(cols)")
+        // print("count - cols \(array.count - cols)")
         for i in stride(from: (array.count - (cols - col)), to: -1, by: -cols) {
             
-            print("remove index \(i), \(array[i])")
+            // print("remove index \(i), \(array[i])")
             array.remove(at: i)
         }
         cols -= 1

@@ -162,10 +162,10 @@ public class LinearRegression {
             print("i \(i) x \(residual.x)  r \(residual.y)")
         }
         */
-        print()
-        print("StDev \(standardDeviation)")
-        print("95% Conv Interval \(standardDeviation * confidenceMultiplier)")
-        print("Outliers")
+        // print()
+        // print("StDev \(standardDeviation)")
+        // print("95% Conv Interval \(standardDeviation * confidenceMultiplier)")
+        // print("Outliers")
         /*
         for point in outliers {
             print(point)
