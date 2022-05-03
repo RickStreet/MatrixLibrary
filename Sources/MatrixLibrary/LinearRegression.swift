@@ -25,6 +25,8 @@ public class LinearRegression {
     public var rSquared = 0.0
     public var variance = 0.0 // variance of redidules
     public var confidenceMultiplier = 1.96  // Standard Deviation multiplier for outlier calc (1.96 = 95% confidence)
+    public var vifs = [Double]()  // Variance Inflation Factor for each ind
+
     /*
      Conf   z
      90%    1.645
@@ -172,6 +174,33 @@ public class LinearRegression {
         }
          */
        // print("fit complete")
+
+        // Calc VIF (Variable Inflation Factor) for each ind
+        let n = ind.cols
+        vifs.removeAll()
+        for i in 0..<n {
+            if let array = ind.col(i) {
+                let depInd = Matrix(rows: array.count, cols: 1)
+                depInd.array = array
+                let depInds = Matrix(rows: ind.rows, cols: ind.cols)
+                depInds.array = ind.array
+                depInds.removeCol(i)
+                //print()
+                //print("VIFs")
+                //print("dep")
+                //print(depInd.description)
+                //print("inds")
+                //print(depInds.description)
+                let results = leastSquaresFit(ind: depInds, dep: depInd)
+                //print("R2 X\(i): \(results.r2)")
+                vifs.append(1.0 / (1.0 - results.r2))
+            } // end if
+            
+        } // end for
+        //print("vifs: \(vifs)")
+
+        
+        
     }
     
     public init(ind: Matrix, dep: Matrix) {
