@@ -26,13 +26,13 @@ public class LinearRegression {
     public var variance = 0.0 // variance of redidules
     public var confidenceMultiplier = 1.96  // Standard Deviation multiplier for outlier calc (1.96 = 95% confidence)
     public var vifs = [Double]()  // Variance Inflation Factor for each ind
-
+    
     /*
      Conf   z
      90%    1.645
      95%    1.96
      99%    2.576
-    */
+     */
     
     
     let smallNumber = 1e-10
@@ -48,8 +48,8 @@ public class LinearRegression {
     public var residuals = [(x: Double, y: Double)]()
     public var predictions = [(x: Double, y: Double)]() // Ind0 vs depPredict
     public var xyPredictions = [(x: Double, y: Double)]() // Actual vs Predicted dep
-
-
+    
+    
     public var noCoef: Int {
         get {
             return ind.cols + 1
@@ -152,29 +152,8 @@ public class LinearRegression {
         // print()
         // print("outliers")
         // print(outlierIndices)
-        /*
-        for (i, outlier) in outliers.enumerated() {
-            print("i \(i) x \(outlier.x), y \(outlier.y)")
-        }
-        */
-        //print()
-        // print("x, residual")
-        /*
-        for (i, residual) in residuals.enumerated() {
-            print("i \(i) x \(residual.x)  r \(residual.y)")
-        }
-        */
-        // print()
-        // print("StDev \(standardDeviation)")
-        // print("95% Conv Interval \(standardDeviation * confidenceMultiplier)")
-        // print("Outliers")
-        /*
-        for point in outliers {
-            print(point)
-        }
-         */
-       // print("fit complete")
-
+        // print("fit complete")
+        
         // Calc VIF (Variable Inflation Factor) for each ind
         let n = ind.cols
         vifs.removeAll()
@@ -198,10 +177,34 @@ public class LinearRegression {
             
         } // end for
         //print("vifs: \(vifs)")
-
-        
-        
     }
+    
+    /// Dependents Corrected for other independents
+    /// - Parameter indIndex: independent index
+    /// - Returns: dep corrected for other independents vs ind with index indIndexz
+    public func correctedDeps(indIndex: Int) -> [(x: Double, y: Double)] {
+        // print()
+        // corIndIndex = index
+        // print("ind index for corr \(index)")
+        let yMinIndex = dep.indexOfMinValue
+        // let yMin = dep.array[yMinIndex]
+        // print("yMin \(yMinIndex)  \(yMin) \(dep.array[yMinIndex])")
+        // print()
+        // print("coefs")
+        var correctedPlotData =  [(x: Double, y: Double)]()
+        
+        for i in 0..<dep.rows {
+            var deltaY = 0.0
+            for j in 0 ..< ind.cols {
+                if j != indIndex {
+                    deltaY += coefs[j + 1] * (ind[i, j] - ind[yMinIndex, j])
+                }
+            }
+            correctedPlotData.append((ind[i, indIndex], dep[i, 0] - deltaY))
+        }
+        return correctedPlotData
+    }
+    
     
     public init(ind: Matrix, dep: Matrix) {
         self.ind = ind
