@@ -97,6 +97,10 @@ public class Matrix {
         print("Matrix: removing row \(row)")
         let range = (row * columnsCount)..<(row * columnsCount + columnsCount)
         print("Matrix: remove range \(range)")
+        print("Matrix.array.count \(array.count)")
+        if row * columnsCount + columnsCount - 1 > array.count {
+            print("end of range out of bounds by \(columnsCount + columnsCount - 1 - array.count)")
+        }
         array.removeSubrange(range)
         rowsCount -= 1
     }
