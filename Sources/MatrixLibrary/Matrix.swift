@@ -13,8 +13,8 @@ import Accelerate
 /**
  Matix class is a two dimensional matrix addressable by indicies [i, j] that provides common matrix operations.  It uses the Accelerate library to do the operations.
  - Parameters:
- - rows:    number of rows in matrix
- - cols:    number of columns in matrix
+ - rowsCount:    number of rows in matrix
+ - columnsCount:    number of columns in matrix
  - array:   Array of the elements as a single row (each row consecutively).
  - subscript:   [i, j] index starts at 0
  - Note
@@ -95,11 +95,15 @@ public class Matrix {
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
         print("Matrix: removing row \(row)")
+        guard row >= 0 || row < rowsCount else { // Start with largest row index
+            print("Row not removed, out of range!!")
+            return
+        }
         let range = (row * columnsCount)..<(row * columnsCount + columnsCount)
         print("Matrix: remove range \(range)")
         print("Matrix.array.count \(array.count)")
         if row * columnsCount + columnsCount - 1 > array.count {
-            print("end of range out of bounds by \(columnsCount + columnsCount - 1 - array.count)")
+            print("end of range out of bounds by \(row * columnsCount + columnsCount - 1 - array.count)")
         }
         array.removeSubrange(range)
         rowsCount -= 1
@@ -119,6 +123,7 @@ public class Matrix {
     public func removeCol(_ col: Int) {
         print("Matrix: removing col \(col)")
         guard col >= 0 || col < columnsCount else { // Start with largest row index
+            print("Col not removed, out of range!!")
             return
         }
         print("cols \(columnsCount)")
