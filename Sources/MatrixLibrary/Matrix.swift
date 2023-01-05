@@ -94,7 +94,7 @@ public class Matrix {
     /// Remove row at row index
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
-        // print("Matrix: removing row \(row)")
+        print("Matrix: removing row \(row)")
         let range = (row * cols)..<(row * cols + cols)
         array.removeSubrange(range)
         rows -= 1
@@ -103,6 +103,7 @@ public class Matrix {
     /// Removes all rows for row indicies in supplied array
     /// - Parameter rows: array of rows to remove
     public func removeRows(_ rows: [Int]) {
+        print("Matrix: removing row \(rows)")
         for i in rows.sorted(by: {$0 > $1}) {
             removeRow(i)
         }
@@ -111,6 +112,7 @@ public class Matrix {
     /// Remove column at index
     /// - Parameter col: Column index
     public func removeCol(_ col: Int) {
+        print("Matrix: removing col \(col)")
         guard col >= 0 || col < cols else {
             return
         }
