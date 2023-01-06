@@ -52,13 +52,13 @@ public class LinearRegression {
     
     public var noCoef: Int {
         get {
-            return ind.columnsCount + 1
+            return ind.columnCount + 1
         }
     }
     
     public var nSamples: Int {
         get {
-            return dep.rowsCount
+            return dep.rowCount
         }
     }
     
@@ -155,13 +155,13 @@ public class LinearRegression {
         // print("fit complete")
         
         // Calc VIF (Variable Inflation Factor) for each ind
-        let n = ind.columnsCount
+        let n = ind.columnCount
         vifs.removeAll()
         for i in 0..<n {
             if let array = ind.col(i) {
                 let depInd = Matrix(rows: array.count, cols: 1)
                 depInd.array = array
-                let depInds = Matrix(rows: ind.rowsCount, cols: ind.columnsCount)
+                let depInds = Matrix(rows: ind.rowCount, cols: ind.columnCount)
                 depInds.array = ind.array
                 depInds.removeCol(i)
                 //print()
@@ -193,9 +193,9 @@ public class LinearRegression {
         // print("coefs")
         var correctedPlotData =  [(x: Double, y: Double)]()
         
-        for i in 0..<dep.rowsCount {
+        for i in 0..<dep.rowCount {
             var deltaY = 0.0
-            for j in 0 ..< ind.columnsCount {
+            for j in 0 ..< ind.columnCount {
                 if j != indIndex {
                     deltaY += coefs[j + 1] * (ind[i, j] - ind[yMinIndex, j])
                 }

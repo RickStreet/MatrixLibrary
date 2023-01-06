@@ -25,12 +25,12 @@ public class Matrix {
     /**
      Rows in matrix.
      */
-    public var rowsCount: Int
+    public var rowCount: Int
     
     /**
      Columns in matix.
      */
-    public var columnsCount: Int
+    public var columnCount: Int
     
     /**
      Array of elements as a single row (each row consecutively.
@@ -38,8 +38,8 @@ public class Matrix {
     public var array: [Double]
     
     public init(rows:Int, cols:Int) {
-        self.rowsCount = rows
-        self.columnsCount = cols
+        self.rowCount = rows
+        self.columnCount = cols
         array = Array(repeating: 0.0, count: cols * rows)
     }
     
@@ -48,17 +48,17 @@ public class Matrix {
     ///   - rows: total number of rows
     ///   - cols: total number of columns
     public func dimension(rows: Int, cols: Int) {
-        self.rowsCount = rows
-        self.columnsCount = cols
+        self.rowCount = rows
+        self.columnCount = cols
         array = Array(repeating: 0.0, count: cols * rows)
     }
     
     public subscript(row:Int, col:Int) -> Double {
         get {
-            return array[row * columnsCount + col]
+            return array[row * columnCount + col]
         }
         set {
-            array[row * columnsCount + col] = newValue
+            array[row * columnCount + col] = newValue
         }
     }
     
@@ -67,10 +67,10 @@ public class Matrix {
     /// - Parameter row: row index for row to return
     /// - Returns: Row with index i
     public func row(_ row: Int) -> [Double]? {
-        guard row >= 0 && row < rowsCount else {
+        guard row >= 0 && row < rowCount else {
             return nil
         }
-        let range = (row * columnsCount)..<(row * columnsCount + columnsCount)
+        let range = (row * columnCount)..<(row * columnCount + columnCount)
         return Array(array[range])
     }
     
@@ -78,11 +78,11 @@ public class Matrix {
     /// - Parameter col: column index for column to return.
     /// - Returns: Column with index i
     public func col(_ col: Int) -> [Double]? {
-        guard col >= 0 || col < columnsCount else {
+        guard col >= 0 || col < columnCount else {
             return nil
         }
         var selectedCol = [Double]()
-        for i in stride(from: col, through: array.count - (columnsCount - col), by: columnsCount) {
+        for i in stride(from: col, through: array.count - (columnCount - col), by: columnCount) {
             // print("i \(i)")
             selectedCol.append(array[i])
         }
@@ -95,19 +95,19 @@ public class Matrix {
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
         print("Matrix: removing row \(row)")
-        print("rows: \(rowsCount)  cols \(columnsCount)")
-        guard row >= 0 || row < rowsCount else { // Start with largest row index
+        print("rows: \(rowCount)  cols \(columnCount)")
+        guard row >= 0 || row < rowCount else { // Start with largest row index
             print("Row \(row) not removed, out of range!!")
             return
         }
-        let range = (row * columnsCount)..<(row * columnsCount + columnsCount)
+        let range = (row * columnCount)..<(row * columnCount + columnCount)
         print("Matrix: remove range \(range)")
         print("Matrix.array.count \(array.count)")
-        if row * columnsCount + columnsCount - 1 > array.count {
-            print("end of range out of bounds by \(row * columnsCount + columnsCount - 1 - array.count)")
+        if row * columnCount + columnCount - 1 > array.count {
+            print("end of range out of bounds by \(row * columnCount + columnCount - 1 - array.count)")
         }
         array.removeSubrange(range)
-        rowsCount -= 1
+        rowCount -= 1
     }
     
     /// Removes all rows for row indicies in supplied array
@@ -123,18 +123,18 @@ public class Matrix {
     /// - Parameter col: Column index
     public func removeCol(_ col: Int) {
         print("Matrix: removing col \(col)")
-        guard col >= 0 || col < columnsCount else { // Start with largest row index
+        guard col >= 0 || col < columnCount else { // Start with largest row index
             print("Col \(col) not removed, out of range!!")
             return
         }
-        print("cols \(columnsCount)")
-        print("count - cols \(array.count - columnsCount)")
-        for i in stride(from: (array.count - (columnsCount - col)), to: -1, by: -columnsCount) {
+        print("cols \(columnCount)")
+        print("count - cols \(array.count - columnCount)")
+        for i in stride(from: (array.count - (columnCount - col)), to: -1, by: -columnCount) {
             
             // print("remove index \(i), \(array[i])")
             array.remove(at: i)
         }
-        columnsCount -= 1
+        columnCount -= 1
     }
 
     
@@ -148,7 +148,7 @@ public class Matrix {
         var inScalar = scalar
         var vsresult = [Double](repeating: 0.0, count : array.count)
         vDSP_vsaddD(array, 1, &inScalar, &vsresult, 1, vDSP_Length(array.count))
-        let resultMatrix = Matrix(rows: rowsCount, cols: columnsCount)
+        let resultMatrix = Matrix(rows: rowCount, cols: columnCount)
         resultMatrix.array = vsresult
         return resultMatrix
     }
@@ -162,7 +162,7 @@ public class Matrix {
     public func add(matrix: Matrix) -> Matrix {
         var result = [Double](repeating: 0.0, count : array.count)
         vDSP_vaddD(self.array, 1, matrix.array, 1, &result, 1, vDSP_Length(self.array.count))
-        let resultMatrix = Matrix(rows: self.rowsCount, cols: self.columnsCount)
+        let resultMatrix = Matrix(rows: self.rowCount, cols: self.columnCount)
         resultMatrix.array = result
         return resultMatrix
     }
@@ -176,7 +176,7 @@ public class Matrix {
     public func subtract(matrix: Matrix) -> Matrix {
         var result = [Double](repeating: 0.0, count : array.count)
         vDSP_vsubD(matrix.array, 1, self.array, 1, &result, 1, vDSP_Length(self.array.count))
-        let resultMatrix = Matrix(rows: self.rowsCount, cols: self.columnsCount)
+        let resultMatrix = Matrix(rows: self.rowCount, cols: self.columnCount)
         resultMatrix.array = result
         return resultMatrix
     }
@@ -192,7 +192,7 @@ public class Matrix {
         var inScalar = scalar
         var vsresult = [Double](repeating: 0.0, count : array.count)
         vDSP_vsdivD(array, 1, &inScalar, &vsresult, 1, vDSP_Length(array.count))
-        let resultMatrix = Matrix(rows: columnsCount, cols: rowsCount)
+        let resultMatrix = Matrix(rows: columnCount, cols: rowCount)
         resultMatrix.array = vsresult
         return resultMatrix
     }
@@ -207,7 +207,7 @@ public class Matrix {
         var inScalar = scalar
         var vsresult = [Double](repeating: 0.0, count : array.count)
         vDSP_vsmulD(array, 1, &inScalar, &vsresult, 1, vDSP_Length(array.count))
-        let resultMatrix = Matrix(rows: rowsCount, cols: columnsCount)
+        let resultMatrix = Matrix(rows: rowCount, cols: columnCount)
         resultMatrix.array = vsresult
         return resultMatrix
     }
@@ -232,13 +232,13 @@ public class Matrix {
      - returns: matrix that is the result of matrix multiplication with tghe input matrix
      */
     public func multiplyMatrix(_ matrix: Matrix) -> Matrix {
-        let mRows = UInt(self.rowsCount)
+        let mRows = UInt(self.rowCount)
         // let mInRows = UInt(inMatrix.rows)
-        let mCols = UInt(self.columnsCount)
-        let mInCols = UInt(matrix.columnsCount)
-        var mresult = [Double](repeating: 0.0, count : self.rowsCount * matrix.columnsCount)
+        let mCols = UInt(self.columnCount)
+        let mInCols = UInt(matrix.columnCount)
+        var mresult = [Double](repeating: 0.0, count : self.rowCount * matrix.columnCount)
         vDSP_mmulD(self.array, 1, matrix.array, 1, &mresult, 1, mRows, mInCols, mCols)
-        let resultMatrix = Matrix(rows: self.rowsCount, cols: matrix.columnsCount)
+        let resultMatrix = Matrix(rows: self.rowCount, cols: matrix.columnCount)
         resultMatrix.array = mresult
         return resultMatrix
     }
@@ -252,10 +252,10 @@ public class Matrix {
      */
     public func transpose() -> Matrix {
         var mtresult = [Double](repeating: 0.0, count : self.array.count)
-        let tRows = UInt(self.columnsCount)
-        let tCols = UInt(self.rowsCount)
+        let tRows = UInt(self.columnCount)
+        let tCols = UInt(self.rowCount)
         vDSP_mtransD(self.array, 1, &mtresult, 1, tRows, tCols)
-        let resultMatrix = Matrix(rows: columnsCount, cols: rowsCount)
+        let resultMatrix = Matrix(rows: columnCount, cols: rowCount)
         resultMatrix.array = mtresult
         return resultMatrix
     }
@@ -280,17 +280,17 @@ public class Matrix {
         
         dgetrf_(&N1, &N2, &inMatrix, &N3, &pivots, &error)
         dgetri_(&N1, &inMatrix, &N2, &pivots, &workspace, &N3, &error)
-        let resultMatrix = Matrix(rows: self.rowsCount, cols: self.columnsCount)
+        let resultMatrix = Matrix(rows: self.rowCount, cols: self.columnCount)
         resultMatrix.array = inMatrix
         return resultMatrix
     }
     
     
     public var diagonal: Matrix? {
-        if self.rowsCount == self.columnsCount {
+        if self.rowCount == self.columnCount {
             // Square Matrix
-            let result = Matrix(rows: self.columnsCount, cols: self.rowsCount)
-            for i in 0 ..< self.rowsCount {
+            let result = Matrix(rows: self.columnCount, cols: self.rowCount)
+            for i in 0 ..< self.rowCount {
                 result[i, i] = self[i, i]
             }
             return result
@@ -332,7 +332,7 @@ public class Matrix {
     
     public func minValue(col: Int) -> Double {
         var min = self[0, col]
-        for i in  1 ..< self.rowsCount {
+        for i in  1 ..< self.rowCount {
             if self[i, col] < min {
                 min = self[i, col]
             }
@@ -342,7 +342,7 @@ public class Matrix {
     
     public func maxValue(col: Int) -> Double {
         var max = self[0, col]
-        for i in  1 ..< self.rowsCount {
+        for i in  1 ..< self.rowCount {
             if self[i, col] > max {
                 max = self[i, col]
             }
@@ -352,10 +352,10 @@ public class Matrix {
     
     public func averageValue(col: Int) -> Double {
         var total = 0.0
-        for i in 0 ..< rowsCount {
+        for i in 0 ..< rowCount {
             total += self[i, col]
         }
-        return total / Double(rowsCount)
+        return total / Double(rowCount)
     }
     
     /**
@@ -393,15 +393,15 @@ public class Matrix {
      - returns: L2 Norm
      */
     public var l2Norm: Double {
-        return cblas_dnrm2(Int32(self.rowsCount * self.columnsCount), self.array, 1)
+        return cblas_dnrm2(Int32(self.rowCount * self.columnCount), self.array, 1)
     }
     
     public var description: String {
         get {
             var descr = ""
-            for i in 0 ..< rowsCount{
+            for i in 0 ..< rowCount{
                 descr += "["
-                for j in 0 ..< columnsCount {
+                for j in 0 ..< columnCount {
                     if j > 0 {
                         descr += ", \(self[i, j])"
                     } else {
@@ -426,8 +426,8 @@ public class Matrix {
  - returns: Matrix determined coeficients for least square (first element is y intercept) along with r2 and r2SA (adjusted)
  */
 public func leastSquaresFit(ind: Matrix, dep: Matrix) -> (coefs: [Double], r2: Double, r2A: Double) {
-    let noCoef = ind.columnsCount + 1
-    let nSamples = dep.rowsCount
+    let noCoef = ind.columnCount + 1
+    let nSamples = dep.rowCount
     var b = Matrix(rows: noCoef, cols: 1) // Final coefs
     let x = Matrix(rows: noCoef, cols: noCoef) // X Matrix first column = 1.0
     let y = Matrix(rows: noCoef, cols: 1)  // Y Matrix
