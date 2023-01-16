@@ -206,12 +206,14 @@ public class NonLinearRegression {
             delegate?.convergeFailed()
             // throw ConvergeError.failed
         }
+        iterations = k
+        print("Matrix Library r2 \(r2)")
+        print("Matrix Library iterations \(k)")
         
         // round significant digits for error
         for i in 0 ..< numberParams {
             params.array[i] = params.array[i].roundTo(digits: 9)
         }
-        iterations = k
         
         // find outliers if converged
         if r2 > 0 {
