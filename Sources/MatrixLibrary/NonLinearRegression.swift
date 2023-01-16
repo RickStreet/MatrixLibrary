@@ -192,15 +192,18 @@ public class NonLinearRegression {
         for y in yValues {
             r2Denominator += (y - yMean) * (y - yMean)
         }
+        print("Matrix Libray r2Denominator \(r2Denominator)")
         
         residuals = getResiduals(fn: fn, params: params.array, xValues: xValues, yValues: yValues)
         // var r2: Double
         if k < maxIterations {
+            print("Matrix Library - converged")
             let sSE = residuals.dotProduct(residuals) // Sum of squared residuals
             variance = sSE / Double((numberPoints + numberParams))
             r2 = 1.0 - sSE / r2Denominator
             converged = true
         } else {
+            print("Matrix Library - did not converged!")
             r2 = -1.0  // Neg r2 signifies soln did not converge
             converged = false
             delegate?.convergeFailed()
