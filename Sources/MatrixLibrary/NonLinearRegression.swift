@@ -105,7 +105,7 @@ public class NonLinearRegression {
         
         while !found && k <= maxIterations {
             k += 1
-            // print("iteration \(k)")
+            print("iteration \(k)")
             
             // print("mu\(k): \(mu)")
             
@@ -189,6 +189,7 @@ public class NonLinearRegression {
         yMatrix.array = yValues
         var r2Denominator = 0.0
         let yMean = yMatrix.meanValue
+        print("Matrix Libray yMean \(yMean)")
         for y in yValues {
             r2Denominator += (y - yMean) * (y - yMean)
         }
@@ -199,6 +200,7 @@ public class NonLinearRegression {
         if k < maxIterations {
             print("Matrix Library - converged")
             let sSE = residuals.dotProduct(residuals) // Sum of squared residuals
+            print("Matrix Libray sSE \(sSE)")
             variance = sSE / Double((numberPoints + numberParams))
             r2 = 1.0 - sSE / r2Denominator
             converged = true
