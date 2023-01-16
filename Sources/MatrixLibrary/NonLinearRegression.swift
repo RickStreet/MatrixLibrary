@@ -77,15 +77,15 @@ public class NonLinearRegression {
         params.array = initParams  // set params to initial guess
         
         var j = Jacobian(fn: fn, params: params.array, xValues: xValues)
-        // print("j:")
-        // print(j.description)
+        print("j:")
+        print(j.description)
         var jTranspose = j.transpose()
         
         var residuals = getResiduals(fn: fn, params: params.array, xValues: xValues, yValues: yValues)
         
         var a = jTranspose.multiplyMatrix(j)
-        // print("a0:")
-        // print(a.description)
+        print("a0:")
+        print(a.description)
         
         var g = jTranspose.multiplyMatrix(residuals)
         // print("g0:")
@@ -100,6 +100,7 @@ public class NonLinearRegression {
         }
         
         var mu = tau * aDiag.maxValue   // damping parameter
+        print("ML infinityNorm:  \(g.infinityNorm)")
         
         var found = g.infinityNorm <= maxNormG
         
