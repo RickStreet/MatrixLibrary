@@ -94,17 +94,17 @@ public class Matrix {
     /// Remove row at row index
     /// - Parameter row: row to remove
     public func removeRow(_ row: Int) {
-        print("Matrix: removing row \(row)")
-        print("rows: \(rowCount)  cols \(columnCount)")
+        // print("Matrix: removing row \(row)")
+        // print("rows: \(rowCount)  cols \(columnCount)")
         guard row >= 0 || row < rowCount else { // Start with largest row index
-            print("Row \(row) not removed, out of range!!")
+            // print("Row \(row) not removed, out of range!!")
             return
         }
         let range = (row * columnCount)..<(row * columnCount + columnCount)
-        print("Matrix: remove range \(range)")
-        print("Matrix.array.count \(array.count)")
+        // print("Matrix: remove range \(range)")
+        // print("Matrix.array.count \(array.count)")
         if row * columnCount + columnCount - 1 > array.count {
-            print("end of range out of bounds by \(row * columnCount + columnCount - 1 - array.count)")
+            // print("end of range out of bounds by \(row * columnCount + columnCount - 1 - array.count)")
         }
         array.removeSubrange(range)
         rowCount -= 1
@@ -113,7 +113,7 @@ public class Matrix {
     /// Removes all rows for row indicies in supplied array
     /// - Parameter rows: array of rows to remove
     public func removeRows(_ rows: [Int]) {
-        print("Matrix: removing row \(rows)")
+        // print("Matrix: removing row \(rows)")
         for i in rows.sorted(by: {$0 > $1}) {
             removeRow(i)
         }
@@ -122,13 +122,13 @@ public class Matrix {
     /// Remove column at index
     /// - Parameter col: Column index
     public func removeCol(_ col: Int) {
-        print("Matrix: removing col \(col)")
+        // print("Matrix: removing col \(col)")
         guard col >= 0 || col < columnCount else { // Start with largest row index
-            print("Col \(col) not removed, out of range!!")
+            // print("Col \(col) not removed, out of range!!")
             return
         }
-        print("cols \(columnCount)")
-        print("count - cols \(array.count - columnCount)")
+        // print("cols \(columnCount)")
+        // print("count - cols \(array.count - columnCount)")
         for i in stride(from: (array.count - (columnCount - col)), to: -1, by: -columnCount) {
             
             // print("remove index \(i), \(array[i])")

@@ -77,15 +77,15 @@ public class NonLinearRegression {
         params.array = initParams  // set params to initial guess
         
         var j = Jacobian(fn: fn, params: params.array, xValues: xValues)
-        print("j:")
-        print(j.description)
+        // print("j:")
+        // print(j.description)
         var jTranspose = j.transpose()
         
         var residuals = getResiduals(fn: fn, params: params.array, xValues: xValues, yValues: yValues)
         
         var a = jTranspose.multiplyMatrix(j)
-        print("a0:")
-        print(a.description)
+        // print("a0:")
+        // print(a.description)
         
         var g = jTranspose.multiplyMatrix(residuals)
         // print("g0:")
@@ -100,13 +100,13 @@ public class NonLinearRegression {
         }
         
         var mu = tau * aDiag.maxValue   // damping parameter
-        print("ML infinityNorm:  \(g.infinityNorm)")
+        // print("ML infinityNorm:  \(g.infinityNorm)")
         
         var found = g.infinityNorm <= maxNormG
         
         while !found && k <= maxIterations {
             k += 1
-            print("iteration \(k)")
+            // print("iteration \(k)")
             
             // print("mu\(k): \(mu)")
             
@@ -130,8 +130,8 @@ public class NonLinearRegression {
             
             // Check if found
             if h.l2Norm <= maxNormH * (params.l2Norm + maxNormH) {
-                print("solution found")
-                print(params.description)
+                // print("solution found")
+                // print(params.description)
                 break  // found solution
             }
             
@@ -185,36 +185,36 @@ public class NonLinearRegression {
         }
         // end while
         
-        print("Number of LM interations: \(k)")
+        // print("Number of LM interations: \(k)")
         let yMatrix = Matrix(rows: numberPoints, cols: 1)
         yMatrix.array = yValues
         var r2Denominator = 0.0
         let yMean = yMatrix.meanValue
-        print("Matrix Libray yMean \(yMean)")
+        // print("Matrix Libray yMean \(yMean)")
         for y in yValues {
             r2Denominator += (y - yMean) * (y - yMean)
         }
-        print("Matrix Libray r2Denominator \(r2Denominator)")
+        // print("Matrix Libray r2Denominator \(r2Denominator)")
         
         residuals = getResiduals(fn: fn, params: params.array, xValues: xValues, yValues: yValues)
         // var r2: Double
         if k < maxIterations {
-            print("Matrix Library - converged")
+            // print("Matrix Library - converged")
             let sSE = residuals.dotProduct(residuals) // Sum of squared residuals
-            print("Matrix Libray sSE \(sSE)")
+            // print("Matrix Libray sSE \(sSE)")
             variance = sSE / Double((numberPoints + numberParams))
             r2 = 1.0 - sSE / r2Denominator
             converged = true
         } else {
-            print("Matrix Library - did not converged!")
+            // print("Matrix Library - did not converged!")
             r2 = -1.0  // Neg r2 signifies soln did not converge
             converged = false
             delegate?.convergeFailed()
             // throw ConvergeError.failed
         }
         iterations = k
-        print("Matrix Library r2 \(r2)")
-        print("Matrix Library iterations \(k)")
+        // print("Matrix Library r2 \(r2)")
+        // print("Matrix Library iterations \(k)")
         
         // round significant digits for error
         for i in 0 ..< numberParams {
@@ -227,7 +227,7 @@ public class NonLinearRegression {
                 self.residuals.append((xValues[i], resid))
                 if !(resid < standardDeviation * confidenceMultiplier || resid < maxPrecisionError) {
                     outliers.append((xValues[i], yValues[i]))
-                    print("outlier: \(xValues[i]), \(yValues[i])  resid \(resid)")
+                    // print("outlier: \(xValues[i]), \(yValues[i])  resid \(resid)")
                 }
             }
         }
