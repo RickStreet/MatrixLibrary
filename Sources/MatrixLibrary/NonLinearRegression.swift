@@ -272,4 +272,19 @@ public class NonLinearRegression {
             throw ConvergeError.failed
         }
     }
+    
+    public init(fn: @escaping ([Double], Double) -> Double, initParams: [Double], data: [(x: Double, y: Double)]) throws {
+        self.fn = fn
+        self.initParams = initParams
+        self.xValues = data.map{$0.x}
+        self.yValues = data.map{$0.y}
+        params = Matrix(rows: initParams.count, cols: 1)
+        do {
+            try fit()
+        } catch {
+            print("Did not converge!")
+            throw ConvergeError.failed
+        }
+    }
+
 }
