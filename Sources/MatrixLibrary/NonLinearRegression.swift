@@ -13,7 +13,7 @@ enum ConvergeError: Error {
     case failed
 }
 
-protocol ConvergeFailure: AnyObject {
+public protocol ConvergeFailure: AnyObject {
     func convergeFailed()
 }
 
