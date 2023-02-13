@@ -9,15 +9,9 @@
 import Foundation
 import DoubleKit
 
-enum ConvergeError: Error {
+public enum ConvergeError: Error {
     case failed
 }
-
-public protocol ConvergeFailure: AnyObject {
-    func convergeFailed()
-}
-
-
 
 
 /// Non-Linear Regression for X Y data
@@ -28,12 +22,9 @@ public class NonLinearRegression {
     var xValues: [Double]
     var yValues: [Double]
     
-    public var confidenceMultiplier = 2.0  // Standard Deviation multiplier for outlier calc (2 = 90% confidence)
+    public var confidenceMultiplier = 1.96  // Standard Deviation multiplier for outlier calc (2 = 90% confidence)
     public var converged = false
     
-    weak var delegate: ConvergeFailure? = nil
-
-
     
     // Results
     public var params: Matrix
@@ -48,6 +39,7 @@ public class NonLinearRegression {
     }
     
     public var outliers = [(x: Double, y: Double)]()
+    public var outlierIndices = [Int]()
     public var residuals = [(x: Double, y: Double)]()
 
 
@@ -207,10 +199,9 @@ public class NonLinearRegression {
             converged = true
         } else {
             // print("Matrix Library - did not converged!")
-            r2 = -1.0  // Neg r2 signifies soln did not converge
+            // r2 = -1.0  // Neg r2 signifies soln did not converge
             converged = false
-            delegate?.convergeFailed()
-            // throw ConvergeError.failed
+            throw ConvergeError.failed
         }
         iterations = k
         // print("Matrix Library r2 \(r2)")
@@ -227,6 +218,7 @@ public class NonLinearRegression {
                 self.residuals.append((xValues[i], resid))
                 if !(resid < standardDeviation * confidenceMultiplier || resid < maxPrecisionError) {
                     outliers.append((xValues[i], yValues[i]))
+                    outlierIndices.append(i)
                     // print("outlier: \(xValues[i]), \(yValues[i])  resid \(resid)")
                 }
             }
