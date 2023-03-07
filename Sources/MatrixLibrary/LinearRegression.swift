@@ -230,8 +230,8 @@ public class LinearRegression {
     public init(ind: Matrix, dep: Matrix) {
         self.ind = ind
         self.dep = dep
-        numberInds = ind.columnCount
-        corralationMatrix = Matrix(rows: numberInds, cols: numberInds)
+        self.numberInds = ind.columnCount
+        self.corralationMatrix = Matrix(rows: numberInds, cols: numberInds)
         
         fit()
     }
