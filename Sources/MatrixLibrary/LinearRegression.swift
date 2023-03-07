@@ -182,7 +182,6 @@ public class LinearRegression {
         //print("vifs: \(vifs)")
         
         // Correlation Array
-        corralationMatrix = Matrix(rows: n, cols: n)
         for i in 0..<numberInds {
             for j in i..<numberInds {
                 if let depArray = ind.col(i), let indArray = ind.col(j) {
