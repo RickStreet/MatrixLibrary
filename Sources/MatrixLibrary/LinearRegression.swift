@@ -234,10 +234,13 @@ public class LinearRegression {
     
     
     public init(ind: Matrix, dep: Matrix) {
+        print("init...")
         self.ind = ind
         self.dep = dep
         self.numberInds = ind.columnCount
+        
         self.corralationMatrix = Matrix(rows: ind.columnCount, cols: ind.columnCount)
+        print("no inds \(ind.columnCount)")
         
         fit()
     }
