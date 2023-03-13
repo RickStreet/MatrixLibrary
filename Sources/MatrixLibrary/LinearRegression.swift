@@ -26,8 +26,7 @@ public class LinearRegression {
     public var variance = 0.0 // variance of redidules
     public var confidenceMultiplier = 1.96  // Standard Deviation multiplier for outlier calc (1.96 = 95% confidence)
     public var vifs = [Double]()  // Variance Inflation Factor for each ind
-    public var corralationMatrix: Matrix
-    public var numberInds = 0
+    public var corralationMatrix = Matrix(rows: 1, cols: 1)
     
     /*
      Conf   z
@@ -182,11 +181,19 @@ public class LinearRegression {
         //print("vifs: \(vifs)")
         
         // Correlation Array
+        correlationInds()
+        
+
+    }
+    
+    func correlationInds() {
         print()
         print("Correlation Array...")
-        print("no inds \(numberInds)")
-        for i in 0..<numberInds {
-            for j in i..<numberInds {
+        let noInds = ind.columnCount
+        print("no inds \(noInds)")
+        corralationMatrix = Matrix(rows: noInds, cols: noInds)
+        for i in 0..<noInds {
+            for j in i..<noInds {
                 if let depArray = ind.col(i), let indArray = ind.col(j) {
                     let depMatrix = Matrix(rows: indArray.count, cols: 1)
                     let indMatrix = Matrix(rows: indArray.count, cols: 1)
@@ -200,7 +207,6 @@ public class LinearRegression {
                 }
             }
         }
-        
 
     }
     
@@ -234,14 +240,8 @@ public class LinearRegression {
     
     
     public init(ind: Matrix, dep: Matrix) {
-        print("init...")
         self.ind = ind
         self.dep = dep
-        self.numberInds = ind.columnCount
-        
-        self.corralationMatrix = Matrix(rows: ind.columnCount, cols: ind.columnCount)
-        print("no inds \(ind.columnCount)")
-        
         fit()
     }
 }
