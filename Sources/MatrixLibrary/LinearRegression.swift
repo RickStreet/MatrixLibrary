@@ -191,6 +191,7 @@ public class LinearRegression {
                     indMatrix.array = indArray
                     let results = leastSquaresFit(ind: indMatrix, dep: depMatrix)
                     corralationMatrix[i, j] = results.r2
+                    print("i /(i)  j /(j)  r2 \(results.r2)")
                 }
             }
         }
