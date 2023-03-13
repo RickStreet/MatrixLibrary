@@ -182,6 +182,9 @@ public class LinearRegression {
         //print("vifs: \(vifs)")
         
         // Correlation Array
+        print()
+        print("Correlation Array...")
+        print("no inds \(numberInds)")
         for i in 0..<numberInds {
             for j in i..<numberInds {
                 if let depArray = ind.col(i), let indArray = ind.col(j) {
