@@ -234,7 +234,7 @@ public class LinearRegression {
         self.ind = ind
         self.dep = dep
         self.numberInds = ind.columnCount
-        self.corralationMatrix = Matrix(rows: numberInds, cols: numberInds)
+        self.corralationMatrix = Matrix(rows: ind.columnCount, cols: ind.columnCount)
         
         fit()
     }
