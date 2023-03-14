@@ -187,10 +187,10 @@ public class LinearRegression {
     }
     
     func correlationInds() {
-        print()
-        print("Correlation Array...")
+        // print()
+        // print("Correlation Array...")
         let noInds = ind.columnCount
-        print("no inds \(noInds)")
+        // print("no inds \(noInds)")
         corralationMatrix = Matrix(rows: noInds, cols: noInds)
         for i in 0..<noInds {
             for j in i..<noInds {
@@ -201,9 +201,9 @@ public class LinearRegression {
                     indMatrix.array = indArray
                     let results = leastSquaresFit(ind: indMatrix, dep: depMatrix)
                     corralationMatrix[i, j] = results.r2
-                    print()
-                    print("i /(i)  j /(j)  r2 \(results.r2)")
-                    print()
+                    //print()
+                    //print("i /(i)  j /(j)  r2 \(results.r2)")
+                    //print()
                 }
             }
         }
