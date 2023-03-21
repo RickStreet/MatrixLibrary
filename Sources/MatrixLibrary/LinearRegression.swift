@@ -27,10 +27,10 @@ public class LinearRegression {
     public var confidenceMultiplier = 1.96  // Standard Deviation multiplier for outlier calc (1.96 = 95% confidence)
     public var vifs = [Double]()  // Variance Inflation Factor for each ind
     public var corralationMatrix = Matrix(rows: 1, cols: 1)
-    public var xMin = 0.0
-    public var xMax = 0.0
-    public var yMin = [Double]()
-    public var yMax = [Double]()
+    public var xMin = [Double]()
+    public var xMax = [Double]()
+    public var yMin = 0.0
+    public var yMax = 0.0
     
     /*
      Conf   z
@@ -77,11 +77,11 @@ public class LinearRegression {
         xyPredictions.removeAll()
         
         // get max and mins
-        xMin = dep.minValue
-        xMax = dep.maxValue
+        yMin = dep.minValue
+        yMax = dep.maxValue
         for i in 0..<ind.columnCount {
-            yMax.append(ind.maxValue(col: i))
-            yMin.append(ind.minValue(col: i))
+            xMax.append(ind.maxValue(col: i))
+            xMin.append(ind.minValue(col: i))
         }
         
         var b = Matrix(rows: noCoef, cols: 1) // Final coefs
