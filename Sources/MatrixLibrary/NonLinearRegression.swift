@@ -31,6 +31,10 @@ public class NonLinearRegression {
     public var r2 = 0.0
     public var iterations = 0
     public var variance = 0.0 // variance of redidules
+    public var xMin = 0.0
+    public var xMax = 0.0
+    public var yMin = 0.0
+    public var yMax = 0.0
     
     public var standardDeviation: Double {
         get {
@@ -47,6 +51,28 @@ public class NonLinearRegression {
 
     
     func fit() throws {
+        
+        // Get Max and Min
+        xMin = xValues[0]
+        xMax = xValues[0]
+        yMin = yValues[0]
+        yMax = yValues[0]
+        for i in 0..<xValues.count {
+            if xValues[i] < xMin {
+                xMin = xValues[i]
+            }
+            if xValues[i] > xMin {
+                xMax = xValues[i]
+            }
+            if yValues[i] < yMin {
+                yMin = yValues[i]
+            }
+            if yValues[i] > yMin {
+                yMax = yValues[i]
+            }
+
+        }
+
         let maxNormG = 1.0e-12// max error for infinite norm of G
         let maxNormH = 1.0e-17
         let tau = 1.0e-6
