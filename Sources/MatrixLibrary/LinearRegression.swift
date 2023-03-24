@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 /**
  leastSquaresFitForInd finds least square fit for ind matrix (1 or more columns) and dep Matrix (1 column)
  - Parameters:
