@@ -142,7 +142,7 @@ public class LinearRegression {
         let sST = sSE + sSR // Total Sum Squares
         // print("SST  \(sST)")
         rSquared = sSR / sST
-        rSquaredAdjusted = 1.0 - (Double(nSamples - 1) / Double(nSamples - noCoef)) * (1.0 - rSquared)  // R2 petalized for greater no coefs
+        rSquaredAdjusted = 1.0 - (1.0 - rSquared) * (Double(nSamples - 1) / Double(nSamples - noCoef - 1)) // R2 petalized for greater no coefs
         variance = sSE / (Double(nSamples) - Double(coefs.count))
         
         // build array of outliers and residuals
