@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/RickStreet/DialogKit.git",
         "state": {
           "branch": null,
-          "revision": "fa7b38eca28cec2b9f2cfda32310618e4822ec60",
-          "version": "2.0.0"
+          "revision": "eee3c0e4f570eac3904bdf50014bf570849226ef",
+          "version": "2.0.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/RickStreet/DoubleKit.git",
         "state": {
           "branch": null,
-          "revision": "f999726f0044cb9027ce418b42880dc4d2274f41",
-          "version": "1.0.7"
+          "revision": "3c94b6220a172910ae974b773859126beefeb926",
+          "version": "1.0.8"
         }
       }
     ]
